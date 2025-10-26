@@ -68,3 +68,4 @@ nunit-*.xml
 /dataSources/
 /dataSources.local.xml
 *.idea
+*.user
