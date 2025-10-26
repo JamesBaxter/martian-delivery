@@ -1,0 +1,6 @@
+@MartianDelivery_HostAddress = http://localhost:5172
+
+GET {{MartianDelivery_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
