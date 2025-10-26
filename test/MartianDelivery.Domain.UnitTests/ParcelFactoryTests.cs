@@ -1,5 +1,6 @@
 using AutoFixture;
 using AwesomeAssertions;
+using MartianDelivery.Domain.StateMachine;
 
 namespace MartianDelivery.Domain.UnitTests;
 
@@ -22,7 +23,7 @@ public class ParcelFactoryTests
         var result = _sut.Create(barcode, contents, recipient, sender);
 
         // Assert
-        result.Should().BeEquivalentTo(new Parcel
+        result.Should().BeEquivalentTo(new Parcel(new ParcelStateMachine(State.Created))
         {
             Barcode = barcode,
             Status = "Created",
@@ -43,5 +44,6 @@ public class ParcelFactoryTests
                 }
             ]
         });
+        result.CurrentState.Should().Be(State.Created);
     }
 }

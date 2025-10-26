@@ -1,4 +1,6 @@
-using MartianDelivery.Domain;
+using MartianDelivery.Domain.StateMachine;
+
+namespace MartianDelivery.Domain;
 
 public interface IParcelFactory
 {
@@ -16,8 +18,10 @@ public class ParcelFactory : IParcelFactory
         string recipient,
         string sender)
     {
-        return new Parcel
+        var parcelStateMachine = new ParcelStateMachine(State.Created);
+        return new Parcel(parcelStateMachine)
         {
+            
             Barcode = barcode,
             Contents = contents,
             Destination = "New London",

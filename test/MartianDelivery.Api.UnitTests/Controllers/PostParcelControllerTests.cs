@@ -2,12 +2,13 @@ using AutoFixture;
 using AwesomeAssertions;
 using MartianDelivery.Controllers;
 using MartianDelivery.Domain;
+using MartianDelivery.Domain.StateMachine;
 using MartianDelivery.Models;
 using MartianDelivery.Persistence;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 
-namespace MartianDelivery.Api.UnitTests;
+namespace MartianDelivery.Api.UnitTests.Controllers;
 
 public class PostParcelControllerTests
 {
@@ -21,6 +22,7 @@ public class PostParcelControllerTests
     
     public PostParcelControllerTests()
     {
+        _fixture.Register<IParcelStateMachine>(() => new ParcelStateMachine(State.Created));
         _sut = new PostParcelController(
             _parcelRepositoryMock,
             _parcelCreateCreateCommandMapper,
