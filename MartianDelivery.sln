@@ -2,6 +2,12 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianDelivery.Api", "src\MartianDelivery.Api\MartianDelivery.Api.csproj", "{DFCD13BF-3124-4B0F-8AA4-04C22F49B78E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{80BA37E5-8083-4BB9-A6DD-D37433EA2ABD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C6BDF000-3E74-4048-BAC8-EE5E3C32620C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianDelivery.Api.UnitTests", "test\MartianDelivery.Api.UnitTests\MartianDelivery.Api.UnitTests.csproj", "{1309EC6C-0AEA-41A0-9F12-CAB41A48C9A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +18,13 @@ Global
 		{DFCD13BF-3124-4B0F-8AA4-04C22F49B78E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFCD13BF-3124-4B0F-8AA4-04C22F49B78E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFCD13BF-3124-4B0F-8AA4-04C22F49B78E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1309EC6C-0AEA-41A0-9F12-CAB41A48C9A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1309EC6C-0AEA-41A0-9F12-CAB41A48C9A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1309EC6C-0AEA-41A0-9F12-CAB41A48C9A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1309EC6C-0AEA-41A0-9F12-CAB41A48C9A2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DFCD13BF-3124-4B0F-8AA4-04C22F49B78E} = {80BA37E5-8083-4BB9-A6DD-D37433EA2ABD}
+		{1309EC6C-0AEA-41A0-9F12-CAB41A48C9A2} = {C6BDF000-3E74-4048-BAC8-EE5E3C32620C}
 	EndGlobalSection
 EndGlobal
