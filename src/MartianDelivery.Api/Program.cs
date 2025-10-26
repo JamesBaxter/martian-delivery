@@ -1,3 +1,6 @@
+using MartianDelivery;
+using MartianDelivery.Persistence;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//todo consider lifecycles
+builder.Services.AddSingleton<IParcelRepository, ParcelRepository>();
+builder.Services.AddSingleton<IParcelFactory, ParcelFactory>();
+builder.Services.AddSingleton<IParcelCreateCommandMapper, ParcelCreateCommandMapper>();
 
 var app = builder.Build();
 
