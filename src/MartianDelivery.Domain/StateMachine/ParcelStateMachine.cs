@@ -15,7 +15,7 @@ public class ParcelStateMachine: IParcelStateMachine
     public ParcelStateMachine(State initialState)
     {
         _stateMachine = new StateMachine<State, Trigger>(initialState);
-        
+
         _stateMachine.Configure(State.Created)
             .Permit(Trigger.Launch, State.OnRocketToMars);
 

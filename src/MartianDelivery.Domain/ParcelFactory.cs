@@ -34,11 +34,7 @@ public class ParcelFactory : IParcelFactory
             Status = "Created",
             History =
             [
-                new HistoryItem
-                {
-                    Status = "HELLO",
-                    Timestamp = "NOW"
-                }
+                new HistoryItem("HELLO","NOW")
             ]
         };
     }

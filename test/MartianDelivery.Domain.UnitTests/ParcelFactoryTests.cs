@@ -37,11 +37,7 @@ public class ParcelFactoryTests
             Contents = contents,
             History =
             [
-                new HistoryItem
-                {
-                    Status = "HELLO",
-                    Timestamp = "NOW"
-                }
+                new HistoryItem("HELLO", "NOW")
             ]
         });
         result.CurrentState.Should().Be(State.Created);
