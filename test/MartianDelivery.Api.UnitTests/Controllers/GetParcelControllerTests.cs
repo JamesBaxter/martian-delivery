@@ -43,7 +43,7 @@ public class GetParcelControllerTests
             new GetResponse
             {
                 Barcode = barcode,
-                Status = parcel.Status,
+                Status = parcel.CurrentState.ToString(),
                 LaunchDate = parcel.LaunchDate,
                 EstimatedArrivalDate = parcel.EstimatedArrivalDate,
                 Origin = parcel.Origin,

@@ -31,7 +31,7 @@ public class GetParcelController : ControllerBase
             var getResponse = new GetResponse
             {
                 Barcode = parcel.Barcode,
-                Status = parcel.Status,
+                Status = parcel.CurrentState.ToString(),
                 LaunchDate = parcel.LaunchDate,
                 EstimatedArrivalDate = parcel.EstimatedArrivalDate,
                 Origin = parcel.Origin,
