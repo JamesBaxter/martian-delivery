@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianDelivery.Domain", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianDelivery.Persistence", "src\MartianDelivery.Persistence\MartianDelivery.Persistence.csproj", "{C5383E13-E531-4B25-AF52-BA54D620952A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MartianDelivery.Domain.UnitTests", "test\MartianDelivery.Domain.UnitTests\MartianDelivery.Domain.UnitTests.csproj", "{06448567-7AD0-4B23-8A6A-2B418790A728}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,11 +36,16 @@ Global
 		{C5383E13-E531-4B25-AF52-BA54D620952A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5383E13-E531-4B25-AF52-BA54D620952A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5383E13-E531-4B25-AF52-BA54D620952A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06448567-7AD0-4B23-8A6A-2B418790A728}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06448567-7AD0-4B23-8A6A-2B418790A728}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06448567-7AD0-4B23-8A6A-2B418790A728}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06448567-7AD0-4B23-8A6A-2B418790A728}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DFCD13BF-3124-4B0F-8AA4-04C22F49B78E} = {80BA37E5-8083-4BB9-A6DD-D37433EA2ABD}
 		{1309EC6C-0AEA-41A0-9F12-CAB41A48C9A2} = {C6BDF000-3E74-4048-BAC8-EE5E3C32620C}
 		{E3C47B54-AF12-4865-9F99-28F353E4800E} = {80BA37E5-8083-4BB9-A6DD-D37433EA2ABD}
 		{C5383E13-E531-4B25-AF52-BA54D620952A} = {80BA37E5-8083-4BB9-A6DD-D37433EA2ABD}
+		{06448567-7AD0-4B23-8A6A-2B418790A728} = {C6BDF000-3E74-4048-BAC8-EE5E3C32620C}
 	EndGlobalSection
 EndGlobal
