@@ -33,6 +33,7 @@ public class PostParcelController : ControllerBase
     public IActionResult Post([FromBody] PostRequest postRequest)
     {
         _logger.LogInformation("Received Create request for Barcode: {barcode}", postRequest.Barcode);
+        
         var createParcelCommand = _parcelCreateCommandMapper.Map(postRequest);
         var parcel = _parcelFactory.Create(
             barcode: createParcelCommand.Barcode,

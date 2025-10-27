@@ -3,8 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace MartianDelivery.Models;
 
-public record PostRequest
+public class PostRequest
 {
+    [RegularExpression("RMARS\\d{19}[A-Z]", ErrorMessage = "Barcode not in correct format.")]
     public required string Barcode { get; set; }
     public required string Sender { get; set; }
     public required string Recipient { get; set; }
