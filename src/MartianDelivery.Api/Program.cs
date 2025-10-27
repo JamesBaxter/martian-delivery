@@ -11,11 +11,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//todo consider lifecycles
-builder.Services.AddSingleton<IParcelRepository, ParcelRepository>();
-builder.Services.AddSingleton<IParcelFactory, ParcelFactory>();
-builder.Services.AddSingleton<IParcelCreateCommandMapper, ParcelCreateCommandMapper>();
+//Would further consider lifecycles of these 
 builder.Services.AddSingleton<IDateTimeProvider, SystemDateTimeProvider>();
+builder.Services.AddSingleton<IParcelRepository, ParcelRepository>();
+builder.Services.AddTransient<IParcelFactory, ParcelFactory>();
+builder.Services.AddTransient<IParcelCreateCommandMapper, ParcelCreateCommandMapper>();
 
 var app = builder.Build();
 
