@@ -18,12 +18,13 @@ public class ParcelFactoryTests
         var contents = _fixture.Create<string>();
         var recipient = _fixture.Create<string>();
         var sender = _fixture.Create<string>();
+        var now = _fixture.Create<DateTimeOffset>();
 
         // Act
-        var result = _sut.Create(barcode, contents, recipient, sender);
+        var result = _sut.Create(barcode, contents, recipient, sender, now);
 
         // Assert
-        result.Should().BeEquivalentTo(new Parcel(new ParcelStateMachine(State.Created))
+        result.Should().BeEquivalentTo(new Parcel(new ParcelStateMachine(State.Created), now)
         {
             Barcode = barcode,
             Status = "Created",
@@ -37,7 +38,7 @@ public class ParcelFactoryTests
             Contents = contents,
             History =
             [
-                new HistoryItem("HELLO", "NOW")
+                new HistoryItem(nameof(State.Created), now)
             ]
         });
         result.CurrentState.Should().Be(State.Created);

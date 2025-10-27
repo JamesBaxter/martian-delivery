@@ -21,7 +21,7 @@ public class GetParcelController : ControllerBase
 
     [HttpGet]
     [Route("{barcode}")]
-    public GetResponse Get(string barcode)
+    public IActionResult Get(string barcode)
     {
         var found = _parcelRepository.TryGetParcel(barcode, out var parcel);
         
@@ -42,10 +42,10 @@ public class GetParcelController : ControllerBase
                 History = parcel.History.Select(h => new HistoryItemResponse
                 {
                     Status = h.Status,
-                    Timestamp = h.Timestamp
+                    Timestamp = h.Timestamp.ToString()
                 }).ToArray()
             };
-            return getResponse;
+            return Ok(getResponse);
         }
 
         throw new NotImplementedException();

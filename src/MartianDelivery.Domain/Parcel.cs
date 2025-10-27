@@ -6,12 +6,12 @@ public class Parcel
 {
     private readonly IParcelStateMachine _stateMachine;
 
-    public Parcel(IParcelStateMachine stateMachine)
+    public Parcel(IParcelStateMachine stateMachine, DateTimeOffset timeStamp)
     {
         _stateMachine = stateMachine;
         History =
         [
-            new HistoryItem(nameof(State.Created),"Now")
+            new HistoryItem(nameof(State.Created), timeStamp)
         ];
     }
     
@@ -30,46 +30,46 @@ public class Parcel
 
     public State CurrentState => _stateMachine.CurrentState();
 
-    public void Launch()
+    public void Launch(DateTimeOffset timeStamp)
     {
-        TriggerAndSetHistory(Trigger.Launch);
+        TriggerAndSetHistory(Trigger.Launch, timeStamp);
     }
 
-    public void Lose()
+    public void Lose(DateTimeOffset timeStamp)
     {
-        TriggerAndSetHistory(Trigger.Lose);
+        TriggerAndSetHistory(Trigger.Lose, timeStamp);
     }
 
-    public void Land()
+    public void Land(DateTimeOffset timeStamp)
     {
-        TriggerAndSetHistory(Trigger.Land);
+        TriggerAndSetHistory(Trigger.Land, timeStamp);
     }
 
-    public void Dispatch()
+    public void Dispatch(DateTimeOffset timeStamp)
     {
-        TriggerAndSetHistory(Trigger.Dispatch);
+        TriggerAndSetHistory(Trigger.Dispatch, timeStamp);
     }
 
-    public void Deliver()
+    public void Deliver(DateTimeOffset timeStamp)
     {
-        TriggerAndSetHistory(Trigger.Deliver);
+        TriggerAndSetHistory(Trigger.Deliver, timeStamp);
     }
     
-    private void TriggerAndSetHistory(Trigger trigger)
+    private void TriggerAndSetHistory(Trigger trigger, DateTimeOffset timeStamp)
     {
         _stateMachine.Fire(trigger);
-        var historyItem = new HistoryItem(_stateMachine.CurrentState().ToString(),"Now");
+        var historyItem = new HistoryItem(_stateMachine.CurrentState().ToString(), timeStamp);
         History = History.Append(historyItem).ToArray();
     }
 }
 
 public class HistoryItem
 {
-    public HistoryItem(string status, string timestamp)
+    public HistoryItem(string status, DateTimeOffset timestamp)
     {
         Status = status;
         Timestamp = timestamp;
     }
     public string Status { get; set; }
-    public string Timestamp { get; set; }
+    public DateTimeOffset Timestamp { get; set; }
 }

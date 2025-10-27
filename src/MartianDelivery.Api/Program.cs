@@ -15,6 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IParcelRepository, ParcelRepository>();
 builder.Services.AddSingleton<IParcelFactory, ParcelFactory>();
 builder.Services.AddSingleton<IParcelCreateCommandMapper, ParcelCreateCommandMapper>();
+builder.Services.AddSingleton<IDateTimeProvider, SystemDateTimeProvider>();
 
 var app = builder.Build();
 

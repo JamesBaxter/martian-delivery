@@ -5,6 +5,7 @@ using MartianDelivery.Domain;
 using MartianDelivery.Domain.StateMachine;
 using MartianDelivery.Models;
 using MartianDelivery.Persistence;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 
@@ -39,7 +40,9 @@ public class GetParcelControllerTests
 
         // Assert
         _parcelRepositoryMock.Received().TryGetParcel(Arg.Is(barcode), out _);
-        result.Should().BeEquivalentTo(
+        var okResult = result as OkObjectResult;
+        okResult!.StatusCode.Should().Be(200);
+        okResult.Value.Should().BeEquivalentTo(
             new GetResponse
             {
                 Barcode = barcode,
@@ -54,7 +57,7 @@ public class GetParcelControllerTests
                 History = parcel.History.Select(x => new HistoryItemResponse
                 {
                     Status = x.Status,
-                    Timestamp = x.Timestamp
+                    Timestamp = x.Timestamp.ToString()
                 }).ToArray()
             });
     }

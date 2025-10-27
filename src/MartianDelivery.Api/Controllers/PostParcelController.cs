@@ -9,16 +9,20 @@ namespace MartianDelivery.Controllers;
 [Route("parcel")]
 public class PostParcelController : ControllerBase
 {
+    private readonly IDateTimeProvider _dateTimeProvider;
     private readonly IParcelCreateCommandMapper _parcelCreateCommandMapper;
     private readonly IParcelFactory _parcelFactory;
     private readonly IParcelRepository _parcelRepository;
-    private readonly ILogger<GetParcelController> _logger;
+    private readonly ILogger<PostParcelController> _logger;
 
-    public PostParcelController(IParcelRepository parcelRepository,
+    public PostParcelController(
+        IDateTimeProvider dateTimeProvider,
+        IParcelRepository parcelRepository,
         IParcelCreateCommandMapper parcelCreateCommandMapper,
         IParcelFactory parcelFactory,
-        ILogger<GetParcelController> logger)
+        ILogger<PostParcelController> logger)
     {
+        _dateTimeProvider = dateTimeProvider;
         _parcelRepository = parcelRepository;
         _parcelCreateCommandMapper = parcelCreateCommandMapper;
         _logger = logger;
@@ -26,7 +30,7 @@ public class PostParcelController : ControllerBase
     }
 
     [HttpPost]
-    public PostResponse Post([FromBody] PostRequest postRequest)
+    public IActionResult Post([FromBody] PostRequest postRequest)
     {
         _logger.LogInformation("Received Create request for Barcode: {barcode}", postRequest.Barcode);
         var createParcelCommand = _parcelCreateCommandMapper.Map(postRequest);
@@ -34,12 +38,13 @@ public class PostParcelController : ControllerBase
             barcode: createParcelCommand.Barcode,
             contents: createParcelCommand.Contents,
             recipient: createParcelCommand.Recipient,
-            sender: createParcelCommand.Sender
+            sender: createParcelCommand.Sender,
+            timestamp: _dateTimeProvider.OffsetNow
         );
 
         _parcelRepository.TryAddParcel(parcel);
 
-        return CreateResponse(parcel);
+        return Ok(CreateResponse(parcel));
     }
 
     private static PostResponse CreateResponse(Parcel parcel)

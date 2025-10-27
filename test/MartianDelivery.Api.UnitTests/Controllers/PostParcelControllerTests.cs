@@ -5,6 +5,7 @@ using MartianDelivery.Domain;
 using MartianDelivery.Domain.StateMachine;
 using MartianDelivery.Models;
 using MartianDelivery.Persistence;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 
@@ -12,7 +13,8 @@ namespace MartianDelivery.Api.UnitTests.Controllers;
 
 public class PostParcelControllerTests
 {
-    private readonly ILogger<GetParcelController> _loggerMock = Substitute.For<ILogger<GetParcelController>>();
+    private readonly IDateTimeProvider _dateTimeProviderMock = Substitute.For<IDateTimeProvider>();
+    private readonly ILogger<PostParcelController> _loggerMock = Substitute.For<ILogger<PostParcelController>>();
     private readonly IParcelRepository _parcelRepositoryMock = Substitute.For<IParcelRepository>();
     private readonly IParcelCreateCommandMapper _parcelCreateCreateCommandMapper = Substitute.For<IParcelCreateCommandMapper>();
     private readonly IParcelFactory _parcelFactoryMock = Substitute.For<IParcelFactory>();
@@ -24,6 +26,7 @@ public class PostParcelControllerTests
     {
         _fixture.Register<IParcelStateMachine>(() => new ParcelStateMachine(State.Created));
         _sut = new PostParcelController(
+            _dateTimeProviderMock,
             _parcelRepositoryMock,
             _parcelCreateCreateCommandMapper,
             _parcelFactoryMock,
@@ -34,6 +37,9 @@ public class PostParcelControllerTests
     public void Post_Calls_CommandMapper_Factory_And_ParcelRepository_ReturnsCreatedParcel()
     {
         // Arrange
+        var now = _fixture.Create<DateTimeOffset>();
+        _dateTimeProviderMock.OffsetNow.Returns(now);
+        
         var postRequest = _fixture.Create<PostRequest>();
         var createParcelCommand = _fixture.Create<CreateParcelCommand>();
         
@@ -46,7 +52,8 @@ public class PostParcelControllerTests
             .Create(Arg.Is(createParcelCommand.Barcode),
                     Arg.Is(createParcelCommand.Contents),
                     Arg.Is(createParcelCommand.Recipient),
-                    Arg.Is(createParcelCommand.Sender))
+                    Arg.Is(createParcelCommand.Sender),
+                    now)
             .Returns(parcel);
         
         SetupRepositoryResponse(parcel);
@@ -60,9 +67,13 @@ public class PostParcelControllerTests
             .Create(Arg.Is(createParcelCommand.Barcode),
                 Arg.Is(createParcelCommand.Contents),
                 Arg.Is(createParcelCommand.Recipient),
-                Arg.Is(createParcelCommand.Sender));
+                Arg.Is(createParcelCommand.Sender),
+                Arg.Is(now));
         _parcelRepositoryMock.Received().TryAddParcel(Arg.Is(parcel));
-        result.Should().BeEquivalentTo(new PostResponse
+
+        var okResult = result as OkObjectResult;
+        okResult!.StatusCode.Should().Be(200);
+        okResult.Value.Should().BeEquivalentTo(new PostResponse
         {
             Barcode = parcel.Barcode,
             Status = parcel.Status,
